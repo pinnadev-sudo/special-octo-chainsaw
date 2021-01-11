@@ -245,7 +245,7 @@
                 <div class="wrap-input100 input100-select bg1">
                     <span class="label-input100">Regione di residenza</span>
                     <div>
-                        <select class="js-select2" name="service">
+                        <select class="js-select2" name="service" id = "sel-regione">
                             <option value="0">Abruzzo</option>
                             <option value="1">Basilicata</option>
                             <option value="2">Calabria</option>
@@ -255,10 +255,11 @@
                             <option value="6">Lazio</option>
                             <option value="7">Liguria</option>
                             <option value="8">Lombardia</option>
+                            <option value="8">Lombardia</option>
                             <option value="9">Marche</option>
                             <option value="10">Molise</option>
-                            <option value="10">P.A. Bolzano</option>
-                            <option value="10">P.A. Trento</option>
+                            <option value="80">P.A. Bolzano</option>
+                            <option value="90">P.A. Trento</option>
                             <option value="11">Piemonte</option>
                             <option value="12">Puglia</option>
                             <option value="13">Sardegna</option>
@@ -276,16 +277,17 @@
                 <div class="wrap-input100 input100-select bg1 rs1-wrap-input100">
                     <span class="label-input100">Età</span>
                     <div>
-                        <select class="js-select2" name="service">
-                            <option>16-19</option>
-                            <option>20-29</option>
-                            <option>30-39</option>
-                            <option>40-49</option>
-                            <option>50-59</option>
-                            <option>60-69</option>
-                            <option>70-79</option>
-                            <option>80-89</option>
-                            <option>90+</option>
+                        <select class="js-select2" name="service" id = "sel-eta">
+                            <option value="0"><16</option>
+                            <option value="1">16-19</option>
+                            <option value="2">20-29</option>
+                            <option value="3">30-39</option>
+                            <option value="4">40-49</option>
+                            <option value="5">50-59</option>
+                            <option value="6">60-69</option>
+                            <option value="7">70-79</option>
+                            <option value="8">80-89</option>
+                            <option value="9">90+</option>
 
                         </select>
                         <div class="dropDownSelect2"></div>
@@ -295,7 +297,7 @@
                 <div class="wrap-input100 input100-select bg1 rs1-wrap-input100">
                     <span class="label-input100">Lavoro</span>
                     <div>
-                        <select class="js-select2" name="service">
+                        <select class="js-select2" name="service" id = "sel-lavoro">
                             <option>Operatore Sanitario</option>
                             <option>Medico</option>
                             <option>Altro</option>
@@ -312,29 +314,29 @@
 						<span class="label-input100">Rientri in una categoria protetta?</span>
                         <ul>
 						<div class="contact100-form-radio m-t-15">
-							<input class="input-radio100" id="radio1" type="checkbox" name="type-product" value="physical">
-							<label class="label-radio100" for="radio1">
+							<input class="input-radio100" id="sp1" type="checkbox" name="type-product" value="physical">
+							<label class="label-radio100" for="sp1">
 								Ospite RSA
 							</label>
 						</div>
 
 						<div class="contact100-form-radio">
-							<input class="input-radio100" id="radio2" type="checkbox" name="type-product" value="digital">
-							<label class="label-radio100" for="radio2">
+							<input class="input-radio100" id="sp2" type="checkbox" name="type-product" value="digital">
+							<label class="label-radio100" for="sp2">
 								Malato Cronico
 							</label>
 						</div>
 
 						<div class="contact100-form-radio">
-							<input class="input-radio100" id="radio3" type="checkbox" name="type-product" value="service">
-							<label class="label-radio100" for="radio3">
+							<input class="input-radio100" id="sp3" type="checkbox" name="type-product" value="service">
+							<label class="label-radio100" for="sp3">
 								Immunodepresso
 							</label>
 						</div>
                         
                         <div class="contact100-form-radio">
-                            <input class="input-radio100" id="radio4" type="checkbox" name="type-product" value="service">
-                            <label class="label-radio100" for="radio4">
+                            <input class="input-radio100" id="sp4" type="checkbox" name="type-product" value="service">
+                            <label class="label-radio100" for="sp4">
                                 Diabetico
                             </label>
                         </div>
@@ -347,8 +349,8 @@
                         <span class="label-input100"> Le informazioni riportate sono basate su una stima non ufficiale e potenzialmente errata. Cliccando su "Calcola" dichiari di comprendere che la data mostrata non è da ritenersi in nessun modo ufficiale.</span>
 
                         <div class="contact100-form-radio m-t-15">
-                            <input class="input-radio100" id="radio8" type="checkbox" name="type-product" value="physical">
-                            <label class="label-radio100" for="radio8">
+                            <input class="input-radio100" id="controllo" type="checkbox" name="type-product" value="physical">
+                            <label class="label-radio100" for="controllo">
                                 Accetto
                             </label>
                         </div>
@@ -356,7 +358,9 @@
                     </div>
 			
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
+
+
+                    <button type="button" class="contact100-form-btn" onclick="calcola();">
 						<span>
 							Calcola
 							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -485,5 +489,210 @@
       gtag('config', 'G-2ZRTEQSHR5');
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
+    </script>
+
+
+    <script>
+
+
+        function calcola(){
+
+            var controllo = document.getElementById("controllo").checked;
+
+            if(!controllo){
+                alert("Devi accettare le condizioni.");
+                return;
+            }
+
+            var reg = document.getElementById("sel-regione");
+             reg = reg.value;
+
+            var eta = document.getElementById("sel-eta");
+            eta = eta.value;
+
+            var lavoro = document.getElementById("sel-lavoro");
+            lavoro = lavoro.value;
+
+            var sp1 = document.getElementById("sp1").checked;
+            var sp2 = document.getElementById("sp2").checked;
+            var sp3 = document.getElementById("sp3").checked;
+            var sp4 = document.getElementById("sp4").checked;
+
+            var v4 = [];
+            if(sp1) v4.push("Ospite RSA");
+            if(sp2) v4.push("Malato Cronico");
+            if(sp3) v4.push("Immunodepresso");
+            if(sp4) v4.push("Diabetico");
+
+
+
+            console.log("CIAOCICCI");
+            console.log(reg, eta, lavoro,v4);
+            var stringa_che_mi_dice_lintervallo = calc_somm(reg,eta,lavoro,v4);
+            alert(stringa_che_mi_dice_lintervallo);
+        }
+
+
+
+
+        var EFFICIENZA_REGIONI = {
+            "0" :  0.59, //"Abruzzo" : 0.59,
+            "1" :  0.51, //"Basilicata" : 0.51,
+            "2" :  0.32, //"Calabria" : 0.32,
+            "3" :  0.75, //"Campania" : 0.75,
+            "4" :  0.59, //"Emilia-Romagna" : 0.59,
+            "5" :  0.47, //"Friuli-Venezia Giulia" : 0.47,
+            "6" :  0.65, //"Lazio" : 0.65,
+            "7" :  0.52, //"Liguria" : 0.52,
+            "8" :  0.30, //"Lombardia" : 0.30,
+            "9" :  0.6, //"Marche" : 0.6,
+            "10" : 0.50, //"Molise" : 0.50,
+            "90" : 0.30, //"Provincia Autonoma di Bolzano" : 0.30,
+            "80" : 0.54, //"Provincia Autonoma di Trento" : 0.54,
+            "11" : 0.44, //"Piemonte" : 0.44,
+            "12" : 0.62, //"Puglia" : 0.62,
+            "13" : 0.49, //"Sardegna" : 0.49,
+            "14" : 0.65, //"Sicilia" : 0.65,
+            "15" : 0.72, //"Toscana" : 0.72,
+            "16" : 0.5, //"Trentino-Alto Adige" : 0.5,
+            "17" : 0.625, //"Umbria" : 0.625,
+            "18" : 0.49, //"Valle d'Aosta" : 0.49,
+            "19" : 0.72 //"Veneto" : 0.72
+        };
+
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
+        function predict(ml_obj, rnd_obj, first, last)
+        {
+            var upper_limit = last - first;
+            ml_obj = (ml_obj === null ? rnd_obj() : ml_obj(rnd_obj()));
+            var out = Math.round((ml_obj*upper_limit) + first);
+            return out;
+        }
+
+        Date.prototype.yyyymmdd = function() {
+            var mm = this.getMonth() + 1; // getMonth() is zero-based
+            var dd = this.getDate();
+
+            return [
+                dd<10 ? '0'+ dd: dd,
+                mm<10 ? '0'+ mm: mm,
+                this.getFullYear()
+            ].join('-')
+        };
+
+
+        function calc_somm(regione, id_fascia_eta, lavoro, categorie) {
+            if (id_fascia_eta <= 0)  return "I Vaccini non sono attualmente disponibili per minori di 16 anni.";
+
+            // generator for reproducibility of experimetns
+            var repr_rnd = new Math.seedrandom("" + regione +  id_fascia_eta + lavoro + categorie);
+
+            // variables needed
+            today_date = new Date();
+            var a = null;
+            var b = null;
+            var machine_learning_estimator = null;
+
+            // the efficiency of each region of italy (done / available)
+            var regione_factor = EFFICIENZA_REGIONI[regione];
+            var delay_region = Math.round(3 * (1 / regione_factor));
+
+            // expected dates for each phase (start_data for each) from ministero
+            const first_fascia = new Date();
+            const second_fascia = new Date('2021-04-01');
+            const third_fascia = new Date('2021-07-01');
+            const forth_fascia = new Date('2021-08-01');
+            const last_ = new Date('2022-01-01');
+
+            //possibile categories of users
+            var cond_first = (lavoro === "Operatore Sanitario" || lavoro === "Medico"
+                || id_fascia_eta > 7 || categorie.includes("Ospite RSA"));
+
+            var cond_second = (id_fascia_eta > 4 || lavoro === "Insegnante"
+                || categorie.includes("Diabetico") || categorie.includes("Immunodepresso"));
+
+            var cond_third = categorie.includes("Malato Cronico");
+
+            console.log(today_date.yyyymmdd())
+            if (cond_first)
+            {
+                if (today_date >= second_fascia) return "between: " + today_dateyyyymmdd() + " and: "  + today_date.addDays(20).yyyymmdd();
+
+                if (lavoro === "Operatore Sanitario" || lavoro === "Medico")
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 30);
+                }
+                else if (id_fascia_eta > 7)
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 30);
+                }
+                else if (categorie.includes("Ospite RSA"))
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 15, 50);
+                }
+                else
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 50);
+                }
+                b = predict(machine_learning_estimator, repr_rnd, a + 15, 90);
+                return "between: " + today_date.addDays(a).yyyymmdd() + " and: " + today_date.addDays(b).yyyymmdd();
+            }
+            else if (cond_second)
+            {
+                if (today_date >= third_fascia) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(20).yyyymmdd();
+
+                if (id_fascia_eta > 4)
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 15, 45);
+                }
+                else if (lavoro === "Insegnante")
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 45);
+                }
+                else if (categorie.includes("Diabetico") || categorie.includes("Immunodepresso"))
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 30);
+                }
+                else
+                {
+                    a = predict(machine_learning_estimator, repr_rnd, 0, 45);
+                }
+                b = predict(machine_learning_estimator, repr_rnd, a + 15, 90);
+                start_date =  (today_date > second_fascia ? today_date : second_fascia);
+                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+            }
+            else if (cond_third)
+            {
+                if (today_date >= forth_fascia) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(20).yyyymmdd();
+
+                a = predict(machine_learning_estimator, repr_rnd, 0, 30);
+                b = predict(machine_learning_estimator, repr_rnd, a + 15, 30 + 15);
+                start_date = (today_date > third_fascia ? today_date : third_fascia);
+                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+            }
+            else
+            {
+                if (today_date >= last_) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(90).yyyymmdd();
+
+                a = predict(machine_learning_estimator, repr_rnd, 0, 30);
+                b = predict(machine_learning_estimator, repr_rnd, a + 30, 150);
+                start_date = (today_date > forth_fascia ? today_date : forth_fascia);
+                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+            }
+        }
+
+
+
+
+
+
+
+    </script>
 </body>
 </html>
