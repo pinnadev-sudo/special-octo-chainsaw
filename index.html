@@ -622,7 +622,7 @@
             console.log(today_date.yyyymmdd())
             if (cond_first)
             {
-                if (today_date >= second_fascia) return "between: " + today_dateyyyymmdd() + " and: "  + today_date.addDays(20).yyyymmdd();
+                if (today_date >= second_fascia) return "Data presunta: tra il " + today_dateyyyymmdd() + " ed il "  + today_date.addDays(20).yyyymmdd();
 
                 if (lavoro === "Operatore Sanitario" || lavoro === "Medico")
                 {
@@ -641,11 +641,11 @@
                     a = predict(machine_learning_estimator, repr_rnd, 0, 50);
                 }
                 b = predict(machine_learning_estimator, repr_rnd, a + 15, 90);
-                return "between: " + today_date.addDays(a).yyyymmdd() + " and: " + today_date.addDays(b).yyyymmdd();
+                return "Data presunta: tra il " + today_date.addDays(a).yyyymmdd() + " ed il " + today_date.addDays(b).yyyymmdd();
             }
             else if (cond_second)
             {
-                if (today_date >= third_fascia) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(20).yyyymmdd();
+                if (today_date >= third_fascia) return "Data presunta: tra il " + today_date.yyyymmdd() + " ed il " + today_date.addDays(20).yyyymmdd();
 
                 if (id_fascia_eta > 4)
                 {
@@ -665,25 +665,25 @@
                 }
                 b = predict(machine_learning_estimator, repr_rnd, a + 15, 90);
                 start_date =  (today_date > second_fascia ? today_date : second_fascia);
-                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+                return "Data presunta: tra il " + start_date.addDays(a).yyyymmdd() + " ed il " + start_date.addDays(b).yyyymmdd();
             }
             else if (cond_third)
             {
-                if (today_date >= forth_fascia) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(20).yyyymmdd();
+                if (today_date >= forth_fascia) return "Data presunta: tra il " + today_date.yyyymmdd() + " ed il " + today_date.addDays(20).yyyymmdd();
 
                 a = predict(machine_learning_estimator, repr_rnd, 0, 30);
                 b = predict(machine_learning_estimator, repr_rnd, a + 15, 30 + 15);
                 start_date = (today_date > third_fascia ? today_date : third_fascia);
-                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+                return "Data presunta: tra il " + start_date.addDays(a).yyyymmdd() + " ed il " + start_date.addDays(b).yyyymmdd();
             }
             else
             {
-                if (today_date >= last_) return "between: " + today_date.yyyymmdd() + " and: " + today_date.addDays(90).yyyymmdd();
+                if (today_date >= last_) return "Data presunta: tra il " + today_date.yyyymmdd() + " ed il " + today_date.addDays(90).yyyymmdd();
 
                 a = predict(machine_learning_estimator, repr_rnd, 0, 30);
                 b = predict(machine_learning_estimator, repr_rnd, a + 30, 150);
                 start_date = (today_date > forth_fascia ? today_date : forth_fascia);
-                return "between: " + start_date.addDays(a).yyyymmdd() + " and: " + start_date.addDays(b).yyyymmdd();
+                return "Data presunta: tra il " + start_date.addDays(a).yyyymmdd() + " ed il " + start_date.addDays(b).yyyymmdd();
             }
         }
 
